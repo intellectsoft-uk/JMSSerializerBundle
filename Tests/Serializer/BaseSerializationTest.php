@@ -39,6 +39,7 @@ use JMS\SerializerBundle\Serializer\VisitorInterface;
 use JMS\SerializerBundle\Serializer\XmlDeserializationVisitor;
 use JMS\SerializerBundle\Serializer\XmlSerializationVisitor;
 use JMS\SerializerBundle\Serializer\YamlSerializationVisitor;
+use JMS\SerializerBundle\Serializer\ArraySerializationVisitor;
 use JMS\SerializerBundle\Tests\Fixtures\AccessorOrderChild;
 use JMS\SerializerBundle\Tests\Fixtures\AccessorOrderParent;
 use JMS\SerializerBundle\Tests\Fixtures\Author;
@@ -489,6 +490,7 @@ abstract class BaseSerializationTest extends \PHPUnit_Framework_TestCase
             'json' => new JsonSerializationVisitor($namingStrategy, $customSerializationHandlers),
             'xml'  => new XmlSerializationVisitor($namingStrategy, $customSerializationHandlers),
             'yml'  => new YamlSerializationVisitor($namingStrategy, $customSerializationHandlers),
+            'array'  => new ArraySerializationVisitor($namingStrategy, $customSerializationHandlers),
         );
         $deserializationVisitors = array(
             'json' => new JsonDeserializationVisitor($namingStrategy, $customDeserializationHandlers, $objectConstructor),
@@ -589,7 +591,7 @@ class Article implements SerializationHandlerInterface, DeserializationHandlerIn
             }
 
             $visitor->document->appendChild($visitor->document->createElement($this->element, $this->value));
-        } elseif ($visitor instanceof JsonSerializationVisitor) {
+        } elseif ($visitor instanceof JsonSerializationVisitor or $visitor instanceof ArraySerializationVisitor) {
             $visited = true;
 
             $visitor->setRoot(array($this->element => $this->value));

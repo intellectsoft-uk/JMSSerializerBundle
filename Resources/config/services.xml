@@ -34,6 +34,7 @@
         <parameter key="jms_serializer.xml_serialization_visitor.class">JMS\SerializerBundle\Serializer\XmlSerializationVisitor</parameter>
         <parameter key="jms_serializer.xml_deserialization_visitor.class">JMS\SerializerBundle\Serializer\XmlDeserializationVisitor</parameter>
         <parameter key="jms_serializer.yaml_serialization_visitor.class">JMS\SerializerBundle\Serializer\YamlSerializationVisitor</parameter>
+        <parameter key="jms_serializer.array_serialization_visitor.class">JMS\SerializerBundle\Serializer\ArraySerializationVisitor</parameter>
 
         <parameter key="jms_serializer.object_based_custom_handler.class">JMS\SerializerBundle\Serializer\Handler\ObjectBasedCustomHandler</parameter>
         <parameter key="jms_serializer.datetime_handler.class">JMS\SerializerBundle\Serializer\Handler\DateTimeHandler</parameter>
@@ -154,6 +155,11 @@
             <argument type="service" id="jms_serializer.naming_strategy" />
             <argument type="collection" /><!-- Custom Handlers -->
             <tag name="jms_serializer.serialization_visitor" format="yml" />
+        </service>
+        <service id="jms_serializer.array_serialization_visitor" class="%jms_serializer.array_serialization_visitor.class%" public="false">
+            <argument type="service" id="jms_serializer.naming_strategy" />
+            <argument type="collection" /><!-- Custom Handlers -->
+            <tag name="jms_serializer.serialization_visitor" format="array" />
         </service>
 
         <!-- Custom Handlers -->
