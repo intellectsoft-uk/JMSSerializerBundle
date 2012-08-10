@@ -36,7 +36,10 @@ class ArraySerializationTest extends BaseSerializationTest
             $outputs['float'] = 4.533;
             $outputs['float_trailing_zero'] = 1;
             $outputs['simple_object'] = array('foo' => 'foo', 'moo' => 'bar', 'camelCase' => 'boo');
-            $outputs['circular_reference'] = array("collection" => array(array("name" => "child1"),array("name" => "child2")),"anotherCollection" => array(array("name" => "child1"),array("name" => "child2")));
+            $outputs['circular_reference'] = array(
+                "collection" => array(array("name" => "child1", 'parent' => null),array("name" => "child2", 'parent' => null)),
+                "anotherCollection" => array(array("name" => "child1", 'parent' => null),array("name" => "child2", 'parent' => null))
+            );
             $outputs['array_strings'] = array('foo', 'bar');
             $outputs['array_booleans'] = array(true, false);
             $outputs['array_integers'] = array(1,3,4);

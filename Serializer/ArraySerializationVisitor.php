@@ -20,6 +20,8 @@ namespace JMS\SerializerBundle\Serializer;
 
 class ArraySerializationVisitor extends GenericSerializationVisitor
 {
+    protected $filterNull;
+
     public function getResult()
     {
         return $this->getRoot();
