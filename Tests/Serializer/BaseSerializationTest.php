@@ -34,6 +34,7 @@ use JMS\SerializerBundle\Serializer\JsonDeserializationVisitor;
 use JMS\SerializerBundle\Serializer\JsonSerializationVisitor;
 use JMS\SerializerBundle\Serializer\Naming\CamelCaseNamingStrategy;
 use JMS\SerializerBundle\Serializer\Naming\SerializedNameAnnotationStrategy;
+use JMS\SerializerBundle\Serializer\Naming\PropertyNameNamingStrategy;
 use JMS\SerializerBundle\Serializer\Serializer;
 use JMS\SerializerBundle\Serializer\VisitorInterface;
 use JMS\SerializerBundle\Serializer\XmlDeserializationVisitor;
@@ -490,7 +491,7 @@ abstract class BaseSerializationTest extends \PHPUnit_Framework_TestCase
             'json' => new JsonSerializationVisitor($namingStrategy, $customSerializationHandlers),
             'xml'  => new XmlSerializationVisitor($namingStrategy, $customSerializationHandlers),
             'yml'  => new YamlSerializationVisitor($namingStrategy, $customSerializationHandlers),
-            'array'  => new ArraySerializationVisitor($namingStrategy, $customSerializationHandlers),
+            'array'  => new ArraySerializationVisitor(new SerializedNameAnnotationStrategy(new PropertyNameNamingStrategy()), $customSerializationHandlers),
         );
         $deserializationVisitors = array(
             'json' => new JsonDeserializationVisitor($namingStrategy, $customDeserializationHandlers, $objectConstructor),
