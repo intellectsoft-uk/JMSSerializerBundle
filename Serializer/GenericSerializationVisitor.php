@@ -29,6 +29,7 @@ abstract class GenericSerializationVisitor extends AbstractSerializationVisitor
     private $root;
     private $dataStack;
     private $data;
+    protected $filterNull = true;
 
     public function setNavigator(GraphNavigator $navigator)
     {
@@ -133,7 +134,7 @@ abstract class GenericSerializationVisitor extends AbstractSerializationVisitor
                 : $data->{$metadata->getter}());
 
         $v = $this->navigator->accept($v, null, $this);
-        if (null === $v) {
+        if ($this->filterNull && null === $v) {
             return;
         }
 
